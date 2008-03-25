@@ -15,14 +15,15 @@
 Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
-Version:	2.5.03.2382
+Version:	2.5.04.2980
 Release:	0.1
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
-Source0:	http://unifacecm.de/archive/%{name}-%{version}.tar.gz
-# Source0-md5:	4f7d2e54c5529829a43b089f9b37c86e
+Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
+# Source0-md5:	2f82c5b76cd450edcde714eed52b6377
 Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
+Source3:	%{name}.pam
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -38,7 +39,6 @@ BuildRequires:	pcre-devel
 BuildRequires:	postgresql-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sqlite3-devel
-BuildRequires:	texinfo
 BuildRequires:	unixODBC-devel
 BuildRequires:	xmlto
 BuildRequires:	zlib-devel
@@ -135,13 +135,14 @@ xmlto --skip-validation -o html_cvsclient html cvsclient2.dbk
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{rc.d/init.d,sysconfig/rc-inetd},%{_cvs_root}}
+install -d $RPM_BUILD_ROOT{/etc/{pam.d,rc.d/init.d,sysconfig/rc-inetd},%{_cvs_root}}
 
 %{__make} install -j1 \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/cvslockd
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/pam.d/cvsnt
 
 mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/PServer{.example,}
 mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/Plugins{.example,}
@@ -186,6 +187,7 @@ fi
 %doc doc/html_cvsclient
 %doc AUTHORS FAQ README
 %dir %{_sysconfdir}/cvsnt
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/cvsnt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvsnt/*
 %attr(754,root,root) /etc/rc.d/init.d/cvslockd
 %attr(755,root,root) %{_bindir}/*
