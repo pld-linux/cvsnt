@@ -27,11 +27,12 @@ Source3:	%{name}.pam
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
-BuildRequires:	avahi-compat-libdns_sd-devel
 BuildRequires:	docbook-style-xsl
 BuildRequires:	expat-devel
+BuildRequires:	howl-devel
 %{?with_kerberos:BuildRequires:	krb5-devel}
 BuildRequires:	libstdc++-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	mysql-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
