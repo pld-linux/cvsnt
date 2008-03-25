@@ -1,0 +1,62 @@
+#!/bin/sh
+#
+# cvslockd		This shell script takes care of starting and stopping cvslockd.
+#
+# chkconfig:	2345 80 30
+# description:	cvslockd is a cvs locking server
+#
+# processname:	cvslockd
+# config:
+# pidfile:
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source oident configureation.
+if [ -f /etc/sysconfig/cvslockd ]; then
+	. /etc/sysconfig/cvslockd
+fi
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+	# Start daemons.
+	if [ ! -f /var/lock/subsys/cvslockd ]; then
+		msg_starting cvslockd
+		daemon cvslockd
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/cvslockd
+	else
+		msg_already_running cvslockd
+	fi
+	;;
+  stop)
+	# Stop daemons.
+	if [ -f /var/lock/subsys/cvslockd ]; then
+		msg_stopping cvslockd
+		killproc cvslockd
+		rm -f /var/lock/subsys/cvslockd >/dev/null 2>&1
+	else
+		msg_not_running cvslockd
+	fi
+	;;
+  restart|force-reload)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  status)
+	status cvslockd
+	exit $?
+	;;
+#  reload)
+#	msg_reloading cvslockd
+#	killproc cvslockd -HUP
+#	;;
+  *)
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL

@@ -1,0 +1,10 @@
+SERVICE_NAME=cvspserver
+SOCK_TYPE=stream
+PROTOCOL=tcp
+PORT=2401
+FLAGS=nowait
+USER=root
+GROUP=root
+SERVER=tcpd
+DAEMON=/usr/bin/cvs
+DAEMONARGS="-f -C /etc/cvsnt pserver"
