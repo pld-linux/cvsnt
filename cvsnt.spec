@@ -1,6 +1,6 @@
 # TODO:
-# - check server mode
-# - verify when cvslockd is needed (in main or in pserver package)
+# - check server mode and default config
+# - create cvsnt-database-xyz and cvsnt-protocol-xyz subpackages
 Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
@@ -138,7 +138,17 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/Plugins.example $RPM_BUILD_ROOT%{_sysconf
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
+%post
+/sbin/ldconfig
+/sbin/chkconfig --add cvslockd
+%service cvslockd restart
+
+%preun
+if [ "$1" = "0" ]; then
+        %service cvslockd stop
+        /sbin/chkconfig --del cvslockd
+fi
+
 %postun -p /sbin/ldconfig
 
 %pre pserver
@@ -160,16 +170,13 @@ if [ "$1" = "0" ]; then
 	%service -q rc-inetd reload
 fi
 
-%triggerpostun -- cvs-pserver < 1.1.13-1
-echo "Warning: default cvsroot moved to %{_cvs_root}."
-echo "Check your configration."
-
 %files
 %defattr(644,root,root,755)
 %doc doc/html_cvsclient
 %doc AUTHORS FAQ README
 %dir %{_sysconfdir}/cvsnt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvsnt/*
+%attr(754,root,root) /etc/rc.d/init.d/cvslockd
 %attr(755,root,root) %{_bindir}/*
 %dir %{_libdir}/cvsnt
 %dir %{_libdir}/cvsnt/*
@@ -183,4 +190,3 @@ echo "Check your configration."
 %doc doc/html_cvs
 %attr(770,root,cvs) %dir %{_cvs_root}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/cvsnt
-%attr(754,root,root) /etc/rc.d/init.d/cvslockd
