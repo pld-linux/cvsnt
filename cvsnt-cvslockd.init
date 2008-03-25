@@ -40,6 +40,27 @@ stop() {
 	fi
 }
 
+reload() {
+	if [ -f /var/lock/subsys/cvslockd ]; then
+		msg_reloading cvslockd
+		killproc cvslockd -HUP
+		RETVAL=$?
+	else
+		msg_not_running cvslockd
+		RETVAL=7
+	fi
+}
+
+condrestart() {
+	if [ -f /var/lock/subsys/cvslockd ]; then
+		stop
+		start
+	else
+		msg_not_running cvslockd
+		RETVAL=$1
+	fi
+}
+
 RETVAL=0
 # See how we were called.
 case "$1" in
@@ -49,18 +70,23 @@ case "$1" in
   stop)
   	stop
 	;;
-  restart|force-reload)
+  restart)
 	stop
 	start
+	;;
+#  reload|force-reload)
+#  	reload
+#	;;
+  try-restart)
+	condrestart 0
+	;;
+  force-reload)
+	condrestart 7
 	;;
   status)
 	status cvslockd
 	exit $?
 	;;
-#  reload)
-#	msg_reloading cvslockd
-#	killproc cvslockd -HUP
-#	;;
   *)
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
 	exit 3
