@@ -5,6 +5,13 @@
 # TODO:
 # - check server mode and default config
 # - create cvsnt-database-xyz and cvsnt-protocol-xyz subpackages
+# - unpackaged:
+#   /usr/lib/libcvsapi.la
+#   /usr/lib/libcvsapi.so
+#   /usr/lib/libcvstools.la
+#   /usr/lib/libcvstools.so
+#   /usr/lib/libmdnsclient.la
+#   /usr/lib/libmdnsclient.so
 Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
@@ -130,7 +137,7 @@ xmlto --skip-validation -o html_cvsclient html cvsclient2.dbk
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{rc.d/init.d,sysconfig/rc-inetd},%{_cvs_root}}
 
-%{__make} install \
+%{__make} install -j1 \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/%{name}
