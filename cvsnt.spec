@@ -136,11 +136,24 @@ Requires:	%{name} = %{version}-%{release}
 %description database-sqlite
 SQLite Database support for CVSNT.
 
+%package protocol-gserver
+Summary:	gserver (Kerberos GSS) protocol support for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description protocol-gserver
+gserver (Kerberos GSS) support for CVSNT.
+
+%package protocol-sserver
+Summary:	sserver (SSL) procotol support for for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description protocol-sserver
+sserver (SSL) protocol support for CVSNT.
+
 %prep
 %setup -q
-
-rm -rf pcre zlib
-# rm -rf libltdl
 
 %build
 %configure \
@@ -155,7 +168,7 @@ rm -rf pcre zlib
 	--enable-pserver \
 	--enable-ext \
 	--enable-rsh \
-	--enable-gserver \
+	--%{?with_kerberos:en}%{!?with_kerberos:dis}able-gserver \
 	--enable-sserver \
 	--enable-sspi \
 	--enable-enum \
@@ -222,6 +235,7 @@ fi
 %defattr(644,root,root,755)
 %doc doc/html_cvsclient
 %doc AUTHORS FAQ README
+%doc triggers/examples/*.txt
 %dir %{_sysconfdir}/cvsnt
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/cvsnt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvsnt/*
@@ -229,8 +243,16 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %dir %{_libdir}/cvsnt
 %dir %{_libdir}/cvsnt/*
-%attr(755,root,root) %{_libdir}/cvsnt/protocols/*.so
-%{_libdir}/cvsnt/protocols/*.la
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/enum.so
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/ext.so
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/pserver.so
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/server.so
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/sspi.so
+%{_libdir}/cvsnt/protocols/enum.la
+%{_libdir}/cvsnt/protocols/ext.la
+%{_libdir}/cvsnt/protocols/pserver.la
+%{_libdir}/cvsnt/protocols/server.la
+%{_libdir}/cvsnt/protocols/sspi.la
 %attr(755,root,root) %{_libdir}/lib*-*.so*
 %{_mandir}/man[15]/*
 
@@ -242,20 +264,37 @@ fi
 
 %files database-mysql
 %defattr(644,root,root,755)
+%doc triggers/sql/*_mysql.sql
 %attr(755,root,root) %{_libdir}/cvsnt/databases/mysql.so
 %{_libdir}/cvsnt/databases/mysql.la
 
 %files database-odbc
 %defattr(644,root,root,755)
+%doc triggers/sql/*_oracle.sql
+%doc triggers/sql/*_mssql.sql
 %attr(755,root,root) %{_libdir}/cvsnt/databases/odbc.so
 %{_libdir}/cvsnt/databases/odbc.la
 
 %files database-postgres
 %defattr(644,root,root,755)
+%doc triggers/sql/*_postgres.sql
 %attr(755,root,root) %{_libdir}/cvsnt/databases/postgres.so
 %{_libdir}/cvsnt/databases/postgres.la
 
 %files database-sqlite
 %defattr(644,root,root,755)
+%doc triggers/sql/*_sqlite.sql
 %attr(755,root,root) %{_libdir}/cvsnt/databases/sqlite.so
 %{_libdir}/cvsnt/databases/sqlite.la
+
+%if %{with kerberos}
+%files protocol-gserver
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/gserver.so
+%{_libdir}/cvsnt/protocols/gserver.la
+%endif
+
+%files protocol-sserver
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/sserver.so
+%{_libdir}/cvsnt/protocols/sserver.la
