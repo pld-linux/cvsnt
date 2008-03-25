@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_without	kerberos		# build without krb5 support
+#
 # TODO:
 # - check server mode and default config
 # - create cvsnt-database-xyz and cvsnt-protocol-xyz subpackages
@@ -18,7 +22,7 @@ BuildRequires:	automake >= 1:1.7.9
 BuildRequires:	avahi-compat-libdns_sd-devel
 BuildRequires:	docbook-style-xsl
 BuildRequires:	expat-devel
-BuildRequires:	krb5-devel
+%{?with_kerberos:BuildRequires:	krb5-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	mysql-devel
 BuildRequires:	openssl-devel
@@ -132,8 +136,8 @@ install -d $RPM_BUILD_ROOT{/etc/{rc.d/init.d,sysconfig/rc-inetd},%{_cvs_root}}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/%{name}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/cvslockd
 
-mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/PServer.example $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/PServer
-mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/Plugins.example $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/Plugins
+mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/PServer{.example,}
+mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/Plugins{.example,}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
