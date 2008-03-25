@@ -3,8 +3,8 @@
 %bcond_without	kerberos		# build without krb5 support
 #
 # TODO:
+# - use external libltdl
 # - check server mode and default config
-# - create cvsnt-database-xyz and cvsnt-protocol-xyz subpackages
 # - unpackaged:
 #   /usr/lib/libcvsapi.la
 #   /usr/lib/libcvsapi.so
@@ -104,8 +104,43 @@ Obsoletes:	cvs-nserver-pserver
 Config files for rc-inetd that are necessary to run CVS in pserver
 mode.
 
+%package database-mysql
+Summary:	MySQL Database support for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description database-mysql
+MySQL Database support for CVSNT.
+
+%package database-odbc
+Summary:	ODBC support for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description database-odbc
+ODBC support for CVSNT.
+
+%package database-postgres
+Summary:	PostgreSQL Database support for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description database-postgres
+PostgreSQL Database support for CVSNT.
+
+%package database-sqlite
+Summary:	SQLite Database support for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description database-sqlite
+SQLite Database support for CVSNT.
+
 %prep
 %setup -q
+
+rm -rf pcre zlib
+# rm -rf libltdl
 
 %build
 %configure \
@@ -194,8 +229,8 @@ fi
 %attr(755,root,root) %{_bindir}/*
 %dir %{_libdir}/cvsnt
 %dir %{_libdir}/cvsnt/*
-%attr(755,root,root) %{_libdir}/cvsnt/*/*.so
-%{_libdir}/cvsnt/*/*.la
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/*.so
+%{_libdir}/cvsnt/protocols/*.la
 %attr(755,root,root) %{_libdir}/lib*-*.so*
 %{_mandir}/man[15]/*
 
@@ -204,3 +239,23 @@ fi
 %doc doc/html_cvs
 %attr(770,root,cvs) %dir %{_cvs_root}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/cvsnt
+
+%files database-mysql
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/databases/mysql.so
+%{_libdir}/cvsnt/databases/mysql.la
+
+%files database-odbc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/databases/odbc.so
+%{_libdir}/cvsnt/databases/odbc.la
+
+%files database-postgres
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/databases/postgres.so
+%{_libdir}/cvsnt/databases/postgres.la
+
+%files database-sqlite
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/databases/sqlite.so
+%{_libdir}/cvsnt/databases/sqlite.la
