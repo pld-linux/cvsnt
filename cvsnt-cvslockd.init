@@ -17,10 +17,7 @@ if [ -f /etc/sysconfig/cvslockd ]; then
 	. /etc/sysconfig/cvslockd
 fi
 
-RETVAL=0
-# See how we were called.
-case "$1" in
-  start)
+start() {
 	# Start daemons.
 	if [ ! -f /var/lock/subsys/cvslockd ]; then
 		msg_starting cvslockd
@@ -30,8 +27,9 @@ case "$1" in
 	else
 		msg_already_running cvslockd
 	fi
-	;;
-  stop)
+}
+
+stop() {
 	# Stop daemons.
 	if [ -f /var/lock/subsys/cvslockd ]; then
 		msg_stopping cvslockd
@@ -40,11 +38,20 @@ case "$1" in
 	else
 		msg_not_running cvslockd
 	fi
+}
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
 	;;
   restart|force-reload)
-	$0 stop
-	$0 start
-	exit $?
+	stop
+	start
 	;;
   status)
 	status cvslockd
