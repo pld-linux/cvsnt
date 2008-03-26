@@ -3,6 +3,7 @@
 %bcond_without	kerberos		# build without krb5 support
 #
 # TODO:
+# - stay with STABLE 2.5.04 line as soon as it becomes stable
 # - use external libltdl
 # - check server mode and default config
 # - unpackaged:
@@ -19,6 +20,7 @@ Version:	2.5.04.2980
 Release:	0.1
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
+# http://www.cvsnt.org/wiki/Download
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
 # Source0-md5:	2f82c5b76cd450edcde714eed52b6377
 Source1:	%{name}.inetd
