@@ -1,0 +1,11 @@
+--- cvsnt-2.5.04.2980/Makefile.am~	2008-03-27 00:18:29.000000000 +0200
++++ cvsnt-2.5.04.2980/Makefile.am	2008-03-27 00:18:31.114055905 +0200
+@@ -23,7 +23,7 @@
+ if WITH_PCRE
+   PCRE_SUBDIR =
+ else
+-  PCRE_SUBDIR = pcre
++  PCRE_SUBDIR = 
+ endif
+ 
+ if WITH_LOCKSERVER
