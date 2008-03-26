@@ -1,0 +1,10 @@
+--- cvsnt-2.5.04.2980/configure.in~	2008-03-27 00:22:45.000000000 +0200
++++ cvsnt-2.5.04.2980/configure.in	2008-03-27 00:29:40.212501593 +0200
+@@ -1004,7 +1004,6 @@
+ AM_CONDITIONAL(SSPI_PROTOCOL_SUPPORT, test $acx_sspi = "yes")
+ if test x$acx_sspi = xyes; then
+   AC_DEFINE(SSPI_PROTOCOL_SUPPORT, [], [Support for :sspi:])
+-  AC_CONFIG_SUBDIRS(protocols/ntlm)
+ fi
+ AC_MSG_RESULT($acx_sspi)
+ 
