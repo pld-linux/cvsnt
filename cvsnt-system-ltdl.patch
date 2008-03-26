@@ -10,9 +10,18 @@
  AC_SUBST(INCLTDL)
  AC_SUBST(LIBLTDL)
  
---- cvsnt-2.5.04.2980/Makefile.am~	2008-02-17 08:53:22.000000000 +0200
-+++ cvsnt-2.5.04.2980/Makefile.am	2008-03-27 00:06:10.903530846 +0200
-@@ -55,7 +55,7 @@
+--- cvsnt-2.5.04.2980/Makefile.am	2008-03-27 00:06:10.903530846 +0200
++++ cvsnt-2.5.04.2980/Makefile.am	2008-03-27 00:14:19.591605118 +0200
+@@ -38,8 +38,6 @@
+   RCSTOOLS_SUBDIR =
+ endif
+ 
+-ltdl_subdir = libltdl
+-
+ if WITH_MAC_HFS_SUPPORT
+   MACOSX_SUBDIR = osx
+ else
+@@ -55,7 +53,7 @@
  cvs_config_dir=@cvs_config_dir@
  
  # All other subdirs:
