@@ -1,0 +1,21 @@
+--- cvsnt-2.5.04.2980/Makefile.am~	2008-03-27 00:18:31.000000000 +0200
++++ cvsnt-2.5.04.2980/Makefile.am	2008-03-27 00:20:20.504341040 +0200
+@@ -17,7 +17,7 @@
+ if WITH_ZLIB
+   ZLIB_SUBDIR =
+ else
+-  ZLIB_SUBDIR = zlib
++  ZLIB_SUBDIR = 
+ endif
+ 
+ if WITH_PCRE
+--- cvsnt-2.5.04.2980/configure.in~	2008-03-27 00:20:52.000000000 +0200
++++ cvsnt-2.5.04.2980/configure.in	2008-03-27 00:22:26.175561767 +0200
+@@ -1045,7 +1045,6 @@
+ 	  protocols/Makefile \
+ 	  triggers/Makefile \
+ 	  lockservice/Makefile \
+-	  zlib/Makefile \
+ 	  rcs/Makefile \
+ 	  cvsapi/Makefile \
+ 	  cvsapi/db/Makefile \
