@@ -152,6 +152,14 @@ Requires:	%{name} = %{version}-%{release}
 %description protocol-sserver
 sserver (SSL) protocol support for CVSNT.
 
+%package rcs
+Summary:	CVSNT version of RCS tools
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description rcs
+CVSNT version of RCS tools.
+
 %prep
 %setup -q
 
@@ -172,7 +180,7 @@ sserver (SSL) protocol support for CVSNT.
 	--enable-sserver \
 	--enable-sspi \
 	--enable-enum \
-	--disable-rcs
+	--enable-rcs
 
 %{__make}
 
@@ -240,7 +248,9 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/cvsnt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvsnt/*
 %attr(754,root,root) /etc/rc.d/init.d/cvslockd
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{_bindir}/cvs
+%attr(755,root,root) %{_bindir}/cvslockd
+%attr(755,root,root) %{_bindir}/cvsnt
 %dir %{_libdir}/cvsnt
 %dir %{_libdir}/cvsnt/database
 %dir %{_libdir}/cvsnt/mdns
@@ -275,27 +285,27 @@ fi
 %files database-mysql
 %defattr(644,root,root,755)
 %doc triggers/sql/*_mysql.sql
-%attr(755,root,root) %{_libdir}/cvsnt/databases/mysql.so
-%{_libdir}/cvsnt/databases/mysql.la
+%attr(755,root,root) %{_libdir}/cvsnt/database/mysql.so
+%{_libdir}/cvsnt/database/mysql.la
 
 %files database-odbc
 %defattr(644,root,root,755)
 %doc triggers/sql/*_oracle.sql
 %doc triggers/sql/*_mssql.sql
-%attr(755,root,root) %{_libdir}/cvsnt/databases/odbc.so
-%{_libdir}/cvsnt/databases/odbc.la
+%attr(755,root,root) %{_libdir}/cvsnt/database/odbc.so
+%{_libdir}/cvsnt/database/odbc.la
 
 %files database-postgres
 %defattr(644,root,root,755)
 %doc triggers/sql/*_postgres.sql
-%attr(755,root,root) %{_libdir}/cvsnt/databases/postgres.so
-%{_libdir}/cvsnt/databases/postgres.la
+%attr(755,root,root) %{_libdir}/cvsnt/database/postgres.so
+%{_libdir}/cvsnt/database/postgres.la
 
 %files database-sqlite
 %defattr(644,root,root,755)
 %doc triggers/sql/*_sqlite.sql
-%attr(755,root,root) %{_libdir}/cvsnt/databases/sqlite.so
-%{_libdir}/cvsnt/databases/sqlite.la
+%attr(755,root,root) %{_libdir}/cvsnt/database/sqlite.so
+%{_libdir}/cvsnt/database/sqlite.la
 
 %if %{with kerberos}
 %files protocol-gserver
@@ -308,3 +318,9 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/sserver.so
 %{_libdir}/cvsnt/protocols/sserver.la
+
+%files rcs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/co
+%attr(755,root,root) %{_bindir}/rcsdiff
+%attr(755,root,root) %{_bindir}/rlog
