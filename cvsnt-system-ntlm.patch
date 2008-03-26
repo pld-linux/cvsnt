@@ -8,3 +8,18 @@
  fi
  AC_MSG_RESULT($acx_sspi)
  
+--- cvsnt-2.5.04.2980/protocols/Makefile.am~	2006-08-18 00:10:05.000000000 +0300
++++ cvsnt-2.5.04.2980/protocols/Makefile.am	2008-03-27 00:35:53.073927679 +0200
+@@ -79,9 +79,10 @@
+ 	sspi_unix.cpp \
+ 	common.cpp 
+ 
+-sspi_la_LDFLAGS = -module -avoid-version  -L$(DESTDIR)/$(libdir) ntlm/libntlm.la
++sspi_la_LDFLAGS = -module -avoid-version  -L$(DESTDIR)/$(libdir)
++sspi_la_LIBADD = -lntlm
+ 
+-sspi_ntlm = ntlm
++sspi_ntlm = 
+ 
+ else
+ 
