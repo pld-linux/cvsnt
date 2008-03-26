@@ -4,7 +4,6 @@
 #
 # TODO:
 # - stay with STABLE 2.5.04 line as soon as it becomes stable
-# - use external libltdl
 # - check server mode and default config
 # - unpackaged:
 #   /usr/lib/libcvsapi.la
@@ -26,6 +25,7 @@ Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
 Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
 Source3:	%{name}.pam
+Patch0:		%{name}-system-ltdl.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -172,8 +172,12 @@ CVSNT version of RCS tools.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure \
 	--enable-mdns \
 	--enable-sqlite \
