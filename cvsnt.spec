@@ -152,6 +152,14 @@ Requires:	%{name} = %{version}-%{release}
 %description protocol-sserver
 sserver (SSL) protocol support for CVSNT.
 
+%package protocol-sync
+Summary:	sync procotol support for for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description protocol-sync
+sync protocol support for CVSNT.
+
 %package rcs
 Summary:	CVSNT version of RCS tools
 Group:		Development/Version Control
@@ -251,6 +259,7 @@ fi
 %attr(755,root,root) %{_bindir}/cvs
 %attr(755,root,root) %{_bindir}/cvslockd
 %attr(755,root,root) %{_bindir}/cvsnt
+%attr(755,root,root) %{_bindir}/cvsscript
 %dir %{_libdir}/cvsnt
 %dir %{_libdir}/cvsnt/database
 %dir %{_libdir}/cvsnt/mdns
@@ -318,6 +327,11 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/sserver.so
 %{_libdir}/cvsnt/protocols/sserver.la
+
+%files protocol-sync
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/sync.so
+%{_libdir}/cvsnt/protocols/sync.la
 
 %files rcs
 %defattr(644,root,root,755)
