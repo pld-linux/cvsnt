@@ -242,7 +242,11 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/cvslockd
 %attr(755,root,root) %{_bindir}/*
 %dir %{_libdir}/cvsnt
-%dir %{_libdir}/cvsnt/*
+%dir %{_libdir}/cvsnt/database
+%dir %{_libdir}/cvsnt/mdns
+%attr(755,root,root) %{_libdir}/cvsnt/mdns/*.so
+%{_libdir}/cvsnt/mdns/*.la
+%dir %{_libdir}/cvsnt/protocols
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/enum.so
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/ext.so
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/pserver.so
@@ -253,6 +257,12 @@ fi
 %{_libdir}/cvsnt/protocols/pserver.la
 %{_libdir}/cvsnt/protocols/server.la
 %{_libdir}/cvsnt/protocols/sspi.la
+%dir %{_libdir}/cvsnt/triggers
+%attr(755,root,root) %{_libdir}/cvsnt/triggers/*.so
+%{_libdir}/cvsnt/triggers/*.la
+%dir %{_libdir}/cvsnt/xdiff
+%attr(755,root,root) %{_libdir}/cvsnt/xdiff/*.so
+%{_libdir}/cvsnt/xdiff/*.la
 %attr(755,root,root) %{_libdir}/lib*-*.so*
 %{_mandir}/man[15]/*
 
