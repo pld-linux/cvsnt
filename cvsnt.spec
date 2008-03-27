@@ -26,6 +26,9 @@ Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
 Source3:	%{name}.pam
 Patch0:		%{name}-system-ltdl.patch
+Patch1:		%{name}-system-pcre.patch
+Patch2:		%{name}-system-zlib.patch
+Patch3:		%{name}-system-ntlm.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -33,6 +36,8 @@ BuildRequires:	docbook-style-xsl
 BuildRequires:	expat-devel
 BuildRequires:	howl-devel
 %{?with_kerberos:BuildRequires:	krb5-devel}
+BuildRequires:	libltdl-devel
+BuildRequires:	libntlm-devel >= 0.3.6
 BuildRequires:	libstdc++-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	mysql-devel
@@ -173,8 +178,14 @@ CVSNT version of RCS tools.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+
+rm -rf pcre libltdl zlib protocols/ntlm
 
 %build
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
