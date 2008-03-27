@@ -23,3 +23,14 @@
  
  else
  
+--- cvsnt-2.5.04.2980/protocols/sspi_unix.cpp~	2006-06-07 20:13:00.000000000 +0300
++++ cvsnt-2.5.04.2980/protocols/sspi_unix.cpp	2008-03-27 00:40:10.336711703 +0200
+@@ -20,7 +20,7 @@
+ #define MODULE sspi
+ 
+ #include "common.h"
+-#include "ntlm/ntlm.h"
++#include <ntlm.h>
+ #include "../version.h"
+ 
+ static int sspi_connect(const struct protocol_interface *protocol, int verify_only);
