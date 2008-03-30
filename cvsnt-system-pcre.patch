@@ -1,5 +1,25 @@
---- cvsnt-2.5.04.2980/Makefile.am~	2008-03-27 00:18:29.000000000 +0200
-+++ cvsnt-2.5.04.2980/Makefile.am	2008-03-27 00:18:31.114055905 +0200
+diff -urN cvsnt-2.5.04.2980.org/configure.in cvsnt-2.5.04.2980/configure.in
+--- cvsnt-2.5.04.2980.org/configure.in	2008-02-14 05:26:00.000000000 +0100
++++ cvsnt-2.5.04.2980/configure.in	2008-03-30 11:45:04.690572767 +0200
+@@ -424,10 +424,11 @@
+ else
+   # Check for pcre posix library
+   saved_libs="$LIBS"
+-  LIBS=""
+-  AC_SEARCH_LIBS(pcre_compile, pcreposix, [AC_MSG_CHECKING([for PCRE posix library])
+-       AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <pcreposix.h>]], [[int i;]])],[ac_cv_have_pcre="yes"],[])
+-       AC_MSG_RESULT($ac_cv_have_pcre)], ac_cv_have_pcre="no")
++  LIBS="-lpcreposix"
++  AC_MSG_CHECKING([for PCRE posix library])
++  AC_TRY_LINK([#include <pcreposix.h>], [regcomp(0, 0, 0);],
++       [ac_cv_have_pcre="yes"],[ac_cv_have_pcre="no"])
++  AC_MSG_RESULT([$ac_cv_have_pcre])
+   PCRE_LIBS="$LIBS"
+   LIBS="$saved_libs"
+ fi
+diff -urN cvsnt-2.5.04.2980.org/Makefile.am cvsnt-2.5.04.2980/Makefile.am
+--- cvsnt-2.5.04.2980.org/Makefile.am	2008-02-17 07:53:22.000000000 +0100
++++ cvsnt-2.5.04.2980/Makefile.am	2008-03-30 11:43:13.315248392 +0200
 @@ -23,7 +23,7 @@
  if WITH_PCRE
    PCRE_SUBDIR =
