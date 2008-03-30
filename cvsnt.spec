@@ -190,7 +190,6 @@ rm -rf pcre libltdl zlib protocols/ntlm
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-visibility \
 	--enable-mdns \
 	--enable-sqlite \
 	--enable-mysql \
