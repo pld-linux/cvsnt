@@ -171,6 +171,7 @@ sync protocol support for CVSNT.
 Summary:	CVSNT version of RCS tools
 Group:		Development/Version Control
 Requires:	%{name} = %{version}-%{release}
+Provides:	rcs
 
 %description rcs
 CVSNT version of RCS tools.
