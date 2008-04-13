@@ -16,7 +16,7 @@ Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 Version:	2.5.04.2980
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 # http://www.cvsnt.org/wiki/Download
@@ -159,6 +159,14 @@ Requires:	%{name} = %{version}-%{release}
 %description protocol-sserver
 sserver (SSL) protocol support for CVSNT.
 
+%package protocol-sspi
+Summary:	SSPI procotol support for for CVSNT
+Group:		Development/Version Control
+Requires:	%{name} = %{version}-%{release}
+
+%description protocol-sspi
+SSPI protocol support for CVSNT.
+
 %package protocol-sync
 Summary:	sync procotol support for for CVSNT
 Group:		Development/Version Control
@@ -288,12 +296,10 @@ fi
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/ext.so
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/pserver.so
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/server.so
-%attr(755,root,root) %{_libdir}/cvsnt/protocols/sspi.so
 %{_libdir}/cvsnt/protocols/enum.la
 %{_libdir}/cvsnt/protocols/ext.la
 %{_libdir}/cvsnt/protocols/pserver.la
 %{_libdir}/cvsnt/protocols/server.la
-%{_libdir}/cvsnt/protocols/sspi.la
 %dir %{_libdir}/cvsnt/triggers
 %attr(755,root,root) %{_libdir}/cvsnt/triggers/*.so
 %{_libdir}/cvsnt/triggers/*.la
@@ -345,6 +351,11 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/sserver.so
 %{_libdir}/cvsnt/protocols/sserver.la
+
+%files protocol-sspi
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/cvsnt/protocols/sspi.so
+%{_libdir}/cvsnt/protocols/sspi.la
 
 %files protocol-sync
 %defattr(644,root,root,755)
