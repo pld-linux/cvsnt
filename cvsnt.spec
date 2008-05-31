@@ -15,13 +15,13 @@
 Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
-Version:	2.5.04.2980
-Release:	3
+Version:	2.5.04.3055
+Release:	1
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 # http://www.cvsnt.org/wiki/Download
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
-# Source0-md5:	2f82c5b76cd450edcde714eed52b6377
+# Source0-md5:	74104668c086d9ece2cf1bb1a8fc60be
 Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
 Source3:	%{name}.pam
