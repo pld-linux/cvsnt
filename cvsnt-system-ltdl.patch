@@ -25,8 +25,8 @@
  cvs_config_dir=@cvs_config_dir@
  
  # All other subdirs:
--SUBDIRS = $(ZLIB_SUBDIR) lib ufc-crypt $(ltdl_subdir) $(EXPAT_SUBDIR) $(PCRE_SUBDIR) $(MDNSCLIENT_SUBDIR) cvsapi diff cvsgui cvstools xdiff \
-+SUBDIRS = $(ZLIB_SUBDIR) lib ufc-crypt $(EXPAT_SUBDIR) $(PCRE_SUBDIR) $(MDNSCLIENT_SUBDIR) cvsapi diff cvsgui cvstools xdiff \
+-SUBDIRS = $(ZLIB_SUBDIR) lib cvsapi/ufc-crypt $(ltdl_subdir) $(EXPAT_SUBDIR) $(PCRE_SUBDIR) $(MDNSCLIENT_SUBDIR) cvsapi diff cvsgui cvstools xdiff \
++SUBDIRS = $(ZLIB_SUBDIR) lib cvsapi/ufc-crypt $(EXPAT_SUBDIR) $(PCRE_SUBDIR) $(MDNSCLIENT_SUBDIR) cvsapi diff cvsgui cvstools xdiff \
  	  protocols triggers cvsdelta $(MACOSX_SUBDIR) src $(LOCKSERVER_SUBDIR) $(RCSTOOLS_SUBDIR) man run_script
  
  EXTRA_DIST = \
