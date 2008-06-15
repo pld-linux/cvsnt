@@ -1,0 +1,32 @@
+--- cvsapi/lib/md5crypt.c.org	2008-06-15 02:55:11.067778449 +0200
++++ cvsapi/lib/md5crypt.c	2008-06-15 02:57:43.657094377 +0200
+@@ -19,6 +19,7 @@
+ #include "api_system.h"
+ 
+ #include <string.h>
++#include <unistd.h>
+ #include "md5.h"
+ #include "md5crypt.h"
+ 
+@@ -157,7 +158,10 @@
+ {
+ 	const char *test_pw;
+ 
+-	if(is_md5_salt(crypt_pw))
++	test_pw = crypt(text, crypt_pw);
++	if (strcmp(test_pw, crypt_pw) == 0)
++		return 0;
++	else if(is_md5_salt(crypt_pw))
+ 		test_pw = md5_crypt(text,crypt_pw+strlen(magic));
+ 	else
+ 		test_pw = ufc_crypt(text,crypt_pw);
+--- cvsapi/Makefile.am~	2008-04-23 09:35:15.000000000 +0200
++++ cvsapi/Makefile.am	2008-06-15 03:00:51.707076565 +0200
+@@ -96,6 +96,6 @@
+ 	unix/SSPIHandler.cpp 
+ 
+ libcvsapi_la_LDFLAGS = -release $(VERSION) -L$(DESTDIR)/$(libdir)
+-libcvsapi_la_LIBADD = $(LIBXML_LIBS) $(pcre_lib) $(mdns_client_lib) $(LIBLTDL) 
++libcvsapi_la_LIBADD = $(LIBXML_LIBS) $(pcre_lib) $(mdns_client_lib) $(LIBLTDL) -lcrypt
+ 
+ lib_LTLIBRARIES = libcvsapi.la
