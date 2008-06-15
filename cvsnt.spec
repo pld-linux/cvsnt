@@ -51,6 +51,7 @@ BuildRequires:	sqlite3-devel
 BuildRequires:	unixODBC-devel
 BuildRequires:	xmlto
 BuildRequires:	zlib-devel
+Requires(post):	/sbin/ldconfig
 Provides:	cvs-client = %{version}
 Obsoletes:	cvs-client
 Obsoletes:	cvs-nserver-client
@@ -250,8 +251,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 if [ "$1" = "0" ]; then
-        %service cvslockd stop
-        /sbin/chkconfig --del cvslockd
+	%service cvslockd stop
+	/sbin/chkconfig --del cvslockd
 fi
 
 %postun -p /sbin/ldconfig
