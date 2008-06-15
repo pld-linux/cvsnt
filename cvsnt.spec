@@ -16,7 +16,7 @@ Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 Version:	2.5.04.3055
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 # http://www.cvsnt.org/wiki/Download
@@ -29,6 +29,7 @@ Patch0:		%{name}-system-ltdl.patch
 Patch1:		%{name}-system-pcre.patch
 Patch2:		%{name}-system-zlib.patch
 Patch3:		%{name}-system-ntlm.patch
+Patch4:		%{name}-crypt.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -190,6 +191,7 @@ CVSNT version of RCS tools.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0
 
 rm -rf pcre libltdl zlib protocols/ntlm
 
