@@ -35,7 +35,6 @@ URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
 BuildRequires:	docbook-style-xsl
-BuildRequires:	libxml2-devel
 BuildRequires:	howl-devel
 %{?with_kerberos:BuildRequires:	krb5-devel}
 BuildRequires:	libltdl-devel
