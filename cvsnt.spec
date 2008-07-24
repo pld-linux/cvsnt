@@ -15,13 +15,13 @@
 Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
-Version:	2.5.04.3055
-Release:	2
+Version:	2.5.04.3125
+Release:	1
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 # http://www.cvsnt.org/wiki/Download
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
-# Source0-md5:	74104668c086d9ece2cf1bb1a8fc60be
+# Source0-md5:	b8aae9e50c3ef682a126a5d19c797558
 Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
 Source3:	%{name}.pam
@@ -30,11 +30,12 @@ Patch1:		%{name}-system-pcre.patch
 Patch2:		%{name}-system-zlib.patch
 Patch3:		%{name}-system-ntlm.patch
 Patch4:		%{name}-crypt.patch
+Patch5:		%{name}-build.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
 BuildRequires:	docbook-style-xsl
-BuildRequires:	expat-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	howl-devel
 %{?with_kerberos:BuildRequires:	krb5-devel}
 BuildRequires:	libltdl-devel
@@ -193,6 +194,7 @@ CVSNT version of RCS tools.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p0
+%patch5 -p1
 
 rm -rf pcre libltdl zlib protocols/ntlm
 
