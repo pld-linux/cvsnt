@@ -22,11 +22,13 @@
  		test_pw = ufc_crypt(text,crypt_pw);
 --- cvsapi/Makefile.am~	2008-04-23 09:35:15.000000000 +0200
 +++ cvsapi/Makefile.am	2008-06-15 03:00:51.707076565 +0200
-@@ -96,6 +96,6 @@
- 	unix/SSPIHandler.cpp 
- 
- libcvsapi_la_LDFLAGS = -release $(VERSION) -L$(DESTDIR)/$(libdir)
--libcvsapi_la_LIBADD = $(LIBXML_LIBS) $(pcre_lib) $(mdns_client_lib) $(LIBLTDL) 
-+libcvsapi_la_LIBADD = $(LIBXML_LIBS) $(pcre_lib) $(mdns_client_lib) $(LIBLTDL) -lcrypt
+@@ -122,6 +122,7 @@
+         $(zlib_lib) \
+         $(pcre_lib) \
+         $(mdns_client_lib) \
+-        $(LIBLTDL) 
++        $(LIBLTDL) \
++	-lcrypt
  
  lib_LTLIBRARIES = libcvsapi.la
+

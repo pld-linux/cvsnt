@@ -1,0 +1,22 @@
+diff -ur cvsnt-2.5.04.3125.org/triggers/email_trigger.cpp cvsnt-2.5.04.3125/triggers/email_trigger.cpp
+--- cvsnt-2.5.04.3125.org/triggers/email_trigger.cpp	2006-09-14 23:31:45.000000000 +0200
++++ cvsnt-2.5.04.3125/triggers/email_trigger.cpp	2008-07-24 09:32:37.258263238 +0200
+@@ -24,6 +24,7 @@
+ #include <config.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <limits.h>
+ #ifdef _WIN32
+ #include <process.h>
+ #include <winsock2.h>
+diff -ur cvsnt-2.5.04.3125.org/triggers/info_trigger.cpp cvsnt-2.5.04.3125/triggers/info_trigger.cpp
+--- cvsnt-2.5.04.3125.org/triggers/info_trigger.cpp	2008-02-20 08:12:57.000000000 +0100
++++ cvsnt-2.5.04.3125/triggers/info_trigger.cpp	2008-07-24 09:32:13.534932201 +0200
+@@ -20,6 +20,7 @@
+ #include <config.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <limits.h>
+ #ifdef _WIN32
+ #include <process.h>
+ #include <winsock2.h>
