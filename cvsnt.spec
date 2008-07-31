@@ -3,6 +3,7 @@
 %bcond_without	kerberos		# build without krb5 support
 #
 # TODO:
+# - commit -r BRANCH is rejected (contrary to manual)
 # - stay with STABLE 2.5.04 line as soon as it becomes stable
 # - check server mode and default config
 # - unpackaged:
