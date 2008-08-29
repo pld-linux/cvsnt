@@ -4,6 +4,12 @@
 #
 # TODO:
 # - commit -r BRANCH is rejected (contrary to manual)
+#   you can commit new file to branch with this technique:
+#    cvs add foo.patch
+#    cvs ci -r BRANCH -m '- new' foo.patch
+#    cvs up -r BRANCH foo.patch
+#    cvs ci -m '- new' foo.patch
+#   or just install cvs client from cvsnt package.
 # - stay with STABLE 2.5.04 line as soon as it becomes stable
 # - check server mode and default config
 # - unpackaged:
