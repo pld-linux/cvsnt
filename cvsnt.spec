@@ -47,6 +47,7 @@ BuildRequires:	howl-devel
 BuildRequires:	libltdl-devel
 BuildRequires:	libntlm-devel >= 0.3.6
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	libxml2-devel
 BuildRequires:	mysql-devel
 BuildRequires:	openssl-devel
