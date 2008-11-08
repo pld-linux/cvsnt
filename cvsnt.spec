@@ -10,7 +10,6 @@
 #    cvs ci -m '- bleh' file.patch
 #   or just install cvs client from cvsnt package.
 # - the newline auto translation on text files should be disabled on .patch files (better for any!)
-# - stay with STABLE 2.5.04 line as soon as it becomes stable
 # - check server mode and default config
 # - unpackaged:
 #   /usr/lib/libcvsapi.la
@@ -22,13 +21,14 @@
 Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
-Version:	2.5.04.3125
-Release:	2
+# 2.5.04 is current stable series (2.5.05 is not)
+Version:	2.5.04.3236
+Release:	1
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 # http://www.cvsnt.org/wiki/Download
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
-# Source0-md5:	b8aae9e50c3ef682a126a5d19c797558
+# Source0-md5:	853d1f2e1c89e8776467271d34bc0dcf
 Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
 Source3:	%{name}.pam
@@ -38,6 +38,7 @@ Patch2:		%{name}-system-zlib.patch
 Patch3:		%{name}-system-ntlm.patch
 Patch4:		%{name}-crypt.patch
 Patch5:		%{name}-build.patch
+Patch6:		%{name}-nospam.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -202,6 +203,7 @@ CVSNT version of RCS tools.
 %patch3 -p1
 %patch4 -p0
 %patch5 -p1
+%patch6 -p1
 
 rm -rf pcre libltdl zlib protocols/ntlm
 
