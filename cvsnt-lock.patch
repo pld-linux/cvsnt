@@ -1,0 +1,11 @@
+--- cvsnt-2.5.04.3236/lockservice/server.cpp~	2007-11-22 07:32:22.000000000 +0100
++++ cvsnt-2.5.04.3236/lockservice/server.cpp	2008-11-08 23:50:42.297635327 +0100
+@@ -254,7 +254,7 @@
+ 	{
+ 		printf("Initialising socket...\n");
+ 	}
+-#if defined( __HP_aCC ) && defined ( __ia64 )
++#if 1
+ 	if(!listen_sock.create("127.0.0.1",szLockServer,local_only?true:false))
+ #else
+ 	if(!listen_sock.create(NULL,szLockServer,local_only?true:false))
