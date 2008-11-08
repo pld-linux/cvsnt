@@ -23,7 +23,7 @@ Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 # 2.5.04 is current stable series (2.5.05 is not)
 Version:	2.5.04.3236
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 # http://www.cvsnt.org/wiki/Download
@@ -39,6 +39,7 @@ Patch3:		%{name}-system-ntlm.patch
 Patch4:		%{name}-crypt.patch
 Patch5:		%{name}-build.patch
 Patch6:		%{name}-nospam.patch
+Patch7:		%{name}-lock.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -204,6 +205,7 @@ CVSNT version of RCS tools.
 %patch4 -p0
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 rm -rf pcre libltdl zlib protocols/ntlm
 
