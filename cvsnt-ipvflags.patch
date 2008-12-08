@@ -1,0 +1,131 @@
+diff -Naur cvsnt-2.5.04.3236.orig/cvsapi/SocketIO.h cvsnt-2.5.04.3236.ipvflags/cvsapi/SocketIO.h
+--- cvsnt-2.5.04.3236.orig/cvsapi/SocketIO.h	2005-10-02 16:45:54.000000000 +0200
++++ cvsnt-2.5.04.3236.ipvflags/cvsapi/SocketIO.h	2008-12-08 11:20:44.000000000 +0100
+@@ -37,6 +37,8 @@
+ 
+ typedef cvs::smartptr<CSocketIO> CSocketIOPtr;
+ 
++extern int ipversion;
++
+ class CSocketIO
+ {
+ public:
+diff -Naur cvsnt-2.5.04.3236.orig/cvsapi/unix/SocketIO.cpp cvsnt-2.5.04.3236.ipvflags/cvsapi/unix/SocketIO.cpp
+--- cvsnt-2.5.04.3236.orig/cvsapi/unix/SocketIO.cpp	2008-12-07 01:16:34.000000000 +0100
++++ cvsnt-2.5.04.3236.ipvflags/cvsapi/unix/SocketIO.cpp	2008-12-08 11:21:31.000000000 +0100
+@@ -84,32 +84,32 @@
+ 
+ bool CSocketIO::create(const char *address, const char *port, bool loopback /* = true */, bool tcp /* = true */)
+ {
+-	static bool v6_checked = false, v6_available = false;
++	static bool v6_available = false;
+ 	addrinfo hint = {0}, *addr;
+ 	SOCKET sock;
+ 
+-	// I'm still not convinced this actually does anything useful, but at least it should only run once otherwise
+-	// you've simply added extra overhead.
+-	if(!v6_checked)
+-	{
+-	// check for installed IPv6 stack
+-	// this may speed up getaddrinfo() dramaticaly if no IPv6 is installed
+-	sock = socket(PF_INET6, SOCK_DGRAM, 0);
+-	if( -1 != sock) {
+-		// IPv6 seams to be installed
+-		hint.ai_family=PF_UNSPEC;
+-		v6_checked = true;
+-		v6_available = true;
+-		::close(sock);
+-	} else {
+-		// IPv6 is not installed
+-		hint.ai_family=PF_INET;
+-		v6_checked = true;
+-		v6_available = false;
++	switch(ipversion) {
++	  case 4:
++	    hint.ai_family=PF_INET;
++	    break;
++	  case 6:
++	    hint.ai_family=PF_INET;
++	    break;
++	  default:
++	    // check for installed IPv6 stack this may speed up getaddrinfo()
++	    // dramaticaly if no IPv6 is installed
++	    sock = socket(PF_INET6, SOCK_DGRAM, 0);
++	    if( -1 != sock) {
++	    	// IPv6 seams to be installed
++	    	hint.ai_family=PF_UNSPEC;
++	    	v6_available = true;
++	    	::close(sock);
++	    } else {
++	    	// IPv6 is not installed
++	    	hint.ai_family=PF_INET;
++	    	v6_available = false;
++	    }
+ 	}
+-	}
+-	else
+-		hint.ai_family=v6_available?PF_UNSPEC:PF_INET;
+ 
+ 	hint.ai_socktype=tcp?SOCK_STREAM:SOCK_DGRAM;
+ 	hint.ai_protocol=tcp?IPPROTO_TCP:IPPROTO_UDP;
+diff -Naur cvsnt-2.5.04.3236.orig/src/client.h cvsnt-2.5.04.3236.ipvflags/src/client.h
+--- cvsnt-2.5.04.3236.orig/src/client.h	2006-08-21 20:48:49.000000000 +0200
++++ cvsnt-2.5.04.3236.ipvflags/src/client.h	2008-12-08 10:51:13.000000000 +0100
+@@ -12,6 +12,9 @@
+ /* Whether the connection should be encrypted.  */
+ extern int cvsencrypt;
+ 
++/* IP protocol version to use. */
++extern int ipversion;
++
+ /* Whether the connection should be authenticated.  */
+ extern int cvsauthenticate;
+ 
+diff -Naur cvsnt-2.5.04.3236.orig/src/main.cpp cvsnt-2.5.04.3236.ipvflags/src/main.cpp
+--- cvsnt-2.5.04.3236.orig/src/main.cpp	2008-10-23 14:57:15.000000000 +0200
++++ cvsnt-2.5.04.3236.ipvflags/src/main.cpp	2008-12-08 10:48:14.000000000 +0100
+@@ -329,6 +329,8 @@
+     "    -w              Make checked-out files read-write (default).\n",
+     "    -t              Show trace of program execution (repeat for more verbosity) -- try with -n.\n",
+     "    -v              CVS version and copyright.\n",
++    "    -4              Use IPv4 addresses only.\n",
++    "    -6              Use IPv6 addresses only.\n",
+     "    -T tmpdir       Use 'tmpdir' for temporary files.\n",
+     "    -e editor       Use 'editor' for editing log information.\n",
+     "    -d CVS_root     Overrides $CVSROOT as the root of the CVS tree.\n",
+@@ -700,7 +702,7 @@
+     int help = 0;		/* Has the user asked for help?  This
+ 				   lets us support the `cvs -H cmd'
+ 				   convention to give help for cmd. */
+-	static const char short_options[] = "+Qqrwtnlvb:T:e:d:HfF:z:s:axyNRo::OL:C:c";
++	static const char short_options[] = "+Qqrwtnlv46b:T:e:d:HfF:z:s:axyNRo::OL:C:c";
+     static struct option long_options[] =
+     {
+ 		{"help", 0, NULL, 'H'},
+@@ -961,6 +963,12 @@
+ 
+ 		exit (0);
+ 		break;
++	    case '4':
++		ipversion=4;
++		break;
++	    case '6':
++		ipversion=6;
++		break;
+ 	    case 'b':
+ 		/* This option used to specify the directory for RCS
+ 		   executables.  But since we don't run them any more,
+diff -Naur cvsnt-2.5.04.3236.orig/src/server.cpp cvsnt-2.5.04.3236.ipvflags/src/server.cpp
+--- cvsnt-2.5.04.3236.orig/src/server.cpp	2008-09-15 10:34:05.000000000 +0200
++++ cvsnt-2.5.04.3236.ipvflags/src/server.cpp	2008-12-08 10:51:40.000000000 +0100
+@@ -5985,6 +5985,10 @@
+    the command line.  */
+ int cvsauthenticate;
+ 
++/* This global variable is set to 4 or 6 if user requested ipv4 or ipv6 or
++ * zero otherwise */
++int ipversion = 0;
++
+ /* An buffer interface.  This is built on top of a
+    packetizing buffer.  */
+ 
