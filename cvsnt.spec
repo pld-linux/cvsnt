@@ -26,7 +26,6 @@ Version:	2.5.04.3236
 Release:	3
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
-# http://www.cvsnt.org/wiki/Download
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
 # Source0-md5:	853d1f2e1c89e8776467271d34bc0dcf
 Source1:	%{name}.inetd
