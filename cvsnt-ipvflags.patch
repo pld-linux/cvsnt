@@ -45,7 +45,7 @@ diff -Naur cvsnt-2.5.04.3236.orig/cvsapi/unix/SocketIO.cpp cvsnt-2.5.04.3236.ipv
 +	    hint.ai_family=PF_INET;
 +	    break;
 +	  case 6:
-+	    hint.ai_family=PF_INET;
++	    hint.ai_family=PF_INET6;
 +	    break;
 +	  default:
 +	    // check for installed IPv6 stack this may speed up getaddrinfo()
