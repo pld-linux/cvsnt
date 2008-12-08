@@ -40,6 +40,7 @@ Patch4:		%{name}-crypt.patch
 Patch5:		%{name}-build.patch
 Patch6:		%{name}-nospam.patch
 Patch7:		%{name}-ipv6.patch
+Patch8:		%{name}-ipvflags.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -206,6 +207,7 @@ CVSNT version of RCS tools.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 rm -rf pcre libltdl zlib protocols/ntlm
 
