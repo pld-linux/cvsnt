@@ -1,15 +1,15 @@
-diff -Naur cvsnt-2.5.04.3236.orig/cvsapi/SocketIO.h cvsnt-2.5.04.3236.ipvflags/cvsapi/SocketIO.h
---- cvsnt-2.5.04.3236.orig/cvsapi/SocketIO.h	2005-10-02 16:45:54.000000000 +0200
-+++ cvsnt-2.5.04.3236.ipvflags/cvsapi/SocketIO.h	2008-12-08 11:20:44.000000000 +0100
-@@ -37,6 +37,8 @@
- 
- typedef cvs::smartptr<CSocketIO> CSocketIOPtr;
- 
-+extern int ipversion;
-+
- class CSocketIO
- {
- public:
+# diff -Naur cvsnt-2.5.04.3236.orig/cvsapi/SocketIO.h cvsnt-2.5.04.3236.ipvflags/cvsapi/SocketIO.h
+# --- cvsnt-2.5.04.3236.orig/cvsapi/SocketIO.h	2005-10-02 16:45:54.000000000 +0200
+# +++ cvsnt-2.5.04.3236.ipvflags/cvsapi/SocketIO.h	2008-12-08 11:20:44.000000000 +0100
+# @@ -37,6 +37,8 @@
+#  
+#  typedef cvs::smartptr<CSocketIO> CSocketIOPtr;
+#  
+# +int ipversion;
+# +
+#  class CSocketIO
+#  {
+#  public:
 diff -Naur cvsnt-2.5.04.3236.orig/cvsapi/unix/SocketIO.cpp cvsnt-2.5.04.3236.ipvflags/cvsapi/unix/SocketIO.cpp
 --- cvsnt-2.5.04.3236.orig/cvsapi/unix/SocketIO.cpp	2008-12-07 01:16:34.000000000 +0100
 +++ cvsnt-2.5.04.3236.ipvflags/cvsapi/unix/SocketIO.cpp	2008-12-08 11:21:31.000000000 +0100
@@ -124,7 +124,7 @@ diff -Naur cvsnt-2.5.04.3236.orig/src/server.cpp cvsnt-2.5.04.3236.ipvflags/src/
  
 +/* This global variable is set to 4 or 6 if user requested ipv4 or ipv6 or
 + * zero otherwise */
-+int ipversion = 0;
++extern int ipversion = 0;
 +
  /* An buffer interface.  This is built on top of a
     packetizing buffer.  */
@@ -135,7 +135,7 @@ diff -Naur cvsnt-2.5.04.3236.orig/src/server.cpp cvsnt-2.5.04.3236.ipvflags/src/
  
  typedef std::map<std::string,std::string> VersionMapType;
  
-+int ipversion = 0;
++extern int ipversion = 0;
 +
  #ifdef _WIN32
  CRITICAL_SECTION g_crit;
@@ -146,8 +146,19 @@ diff -Naur cvsnt-2.5.04.3236.orig/src/server.cpp cvsnt-2.5.04.3236.ipvflags/src/
  CSqlConnectionInformation *g_pCI;
  char g_engine[64];
  
-+int ipversion = 0;
++extern int ipversion = 0;
 +
  // Old->New mapping
  static const char *const dbList[] =
  {
+--- cvsnt-2.5.05.3240/cvsapi/unix/SocketIO.cpp~	2008-12-19 20:59:52.693650080 +0100
++++ cvsnt-2.5.05.3240/cvsapi/unix/SocketIO.cpp	2008-12-19 21:08:28.727973161 +0100
+@@ -46,6 +46,8 @@
+ # define PATCH_NULL(x) x
+ #endif
+ 
++int ipversion = 0;
++
+ CSocketIO::CSocketIO()
+ {
+ 	m_pAddrInfo=NULL;
