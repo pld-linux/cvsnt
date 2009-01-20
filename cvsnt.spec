@@ -23,7 +23,7 @@ Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 # 2.5.04 is current stable series (2.5.05 is not)
 Version:	2.5.04.3236
-Release:	3
+Release:	4
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
