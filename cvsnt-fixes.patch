@@ -1,0 +1,11 @@
+--- cvsnt-2.5.04.3236/lockservice/server.cpp~	2007-11-22 07:32:22.000000000 +0100
++++ cvsnt-2.5.04.3236/lockservice/server.cpp	2009-02-08 19:59:03.012868899 +0100
+@@ -325,7 +325,7 @@
+ 		NotifySCM(SERVICE_RUNNING, 0, 0);
+ #endif
+ 
+-	while(!g_bStop && listen_sock.accept(1000))
++	while(!g_bStop && listen_sock.accept(15000))
+ 	{
+ 		for(size_t n=0; n<listen_sock.accepted_sockets().size(); n++)
+ 			start_thread(listen_sock.accepted_sockets()[n].Detach());
