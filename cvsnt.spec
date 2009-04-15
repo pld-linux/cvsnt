@@ -112,6 +112,7 @@ Requires(pre):	/usr/bin/getgid
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-cvslockd = %{version}-%{release}
 Requires:	rc-inetd
 Provides:	group(cvs)
 Provides:	user(cvs)
@@ -122,6 +123,13 @@ Obsoletes:	cvs-nserver-pserver
 %description pserver
 Config files for rc-inetd that are necessary to run CVS in pserver
 mode.
+
+%package cvslockd
+Summary:	locking daemon
+Group:		Development/Version Control
+
+%description cvslockd
+CVS locking daemon.
 
 %package database-mysql
 Summary:	MySQL Database support for CVSNT
@@ -258,18 +266,18 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/cvsnt/Plugins{.example,}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-/sbin/ldconfig
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
+%post cvslockd
 /sbin/chkconfig --add cvslockd
 %service cvslockd restart
 
-%preun
+%preun cvslockd
 if [ "$1" = "0" ]; then
 	%service cvslockd stop
 	/sbin/chkconfig --del cvslockd
 fi
-
-%postun -p /sbin/ldconfig
 
 %pre pserver
 %groupadd -f -g 52 cvs
@@ -298,9 +306,7 @@ fi
 %dir %{_sysconfdir}/cvsnt
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/cvsnt
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/cvsnt/*
-%attr(754,root,root) /etc/rc.d/init.d/cvslockd
 %attr(755,root,root) %{_bindir}/cvs
-%attr(755,root,root) %{_bindir}/cvslockd
 %attr(755,root,root) %{_bindir}/cvsnt
 %attr(755,root,root) %{_bindir}/cvsscript
 %dir %{_libdir}/cvsnt
@@ -331,6 +337,11 @@ fi
 %doc doc/html_cvs
 %attr(770,root,cvs) %dir %{_cvs_root}
 %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/cvsnt
+
+%files cvslockd
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/cvslockd
+%attr(754,root,root) /etc/rc.d/init.d/cvslockd
 
 %files database-mysql
 %defattr(644,root,root,755)
