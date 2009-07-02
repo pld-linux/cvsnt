@@ -23,7 +23,7 @@ Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 # 2.5.04 is current stable series (2.5.05 is not)
 Version:	2.5.04.3236
-Release:	5
+Release:	6
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
@@ -45,7 +45,7 @@ BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
 BuildRequires:	docbook-style-xsl
 BuildRequires:	howl-devel
-%{?with_kerberos:BuildRequires:	krb5-devel}
+%{?with_kerberos:BuildRequires:	heimdal-devel}
 BuildRequires:	libltdl-devel
 BuildRequires:	libntlm-devel >= 0.3.6
 BuildRequires:	libstdc++-devel
