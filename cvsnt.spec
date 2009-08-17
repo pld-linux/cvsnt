@@ -22,12 +22,12 @@ Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 # 2.5.04 is current stable series (2.5.05 is not)
-Version:	2.5.04.3236
-Release:	8
+Version:	2.5.04.3510
+Release:	1
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
-# Source0-md5:	853d1f2e1c89e8776467271d34bc0dcf
+# Source0-md5:	e4919c2d6d4b9795dc3a5cfa3a44836c
 Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
 Source3:	%{name}.pam
@@ -41,6 +41,7 @@ Patch6:		%{name}-nospam.patch
 Patch7:		%{name}-ipv6.patch
 Patch8:		%{name}-fixes.patch
 Patch9:		%{name}-gcc4.patch
+Patch10:	%{name}-visibility.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -217,6 +218,7 @@ CVSNT version of RCS tools.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p0
 
 rm -rf pcre libltdl zlib protocols/ntlm
 
