@@ -19,14 +19,4 @@
      
      if (last && (last != path))
          return last + 1;
---- cvsnt-2.5.04.3236/src/rcs.cpp~	2008-05-20 13:06:03.000000000 +0200
-+++ cvsnt-2.5.04.3236/src/rcs.cpp	2009-07-03 15:33:46.032338305 +0200
-@@ -5900,7 +5900,7 @@
- 		cvs::string fn;
- 		char *pathpos=NULL;
- 		if (rcsdiff_args.file!=NULL)
--			pathpos=strpbrk(PATCH_NULL(rcsdiff_args.file),"\\/");
-+			pathpos=strpbrk(PATCH_NULL((char *)rcsdiff_args.file),"\\/");
- 		if ((rcsdiff_args.file!=NULL)&&(pathpos!=NULL))
- 			cvs::sprintf(fn,80,"%s",rcsdiff_args.file);
- 		else
+

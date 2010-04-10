@@ -21,27 +21,22 @@
 Summary:	Concurrent Versioning System
 Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
-# 2.5.04 is current stable series (2.5.05 is not)
-Version:	2.5.04.3510
+# http://www.cvsnt.org/archive/2.5_stable tell which version is stable
+Version:	2.5.05.3744
 Release:	1
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
-# Source0-md5:	e4919c2d6d4b9795dc3a5cfa3a44836c
+# Source0-md5:	64aa0fc627893cc66182023b936260da
 Source1:	%{name}.inetd
 Source2:	%{name}-cvslockd.init
 Source3:	%{name}.pam
-Patch0:		%{name}-system-ltdl.patch
-Patch1:		%{name}-system-pcre.patch
-Patch2:		%{name}-system-zlib.patch
-Patch3:		%{name}-system-ntlm.patch
-Patch4:		%{name}-crypt.patch
-Patch5:		%{name}-build.patch
-Patch6:		%{name}-nospam.patch
-Patch7:		%{name}-ipv6.patch
-Patch8:		%{name}-fixes.patch
-Patch9:		%{name}-gcc4.patch
-Patch10:	%{name}-visibility.patch
+Patch0:		%{name}-system-pcre.patch
+Patch1:		%{name}-system-ntlm.patch
+Patch2:		%{name}-build.patch
+Patch3:		%{name}-nospam.patch
+Patch4:		%{name}-fixes.patch
+Patch5:		%{name}-gcc4.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -212,15 +207,10 @@ CVSNT version of RCS tools.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p0
+%patch4 -p1
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p0
 
-rm -rf pcre libltdl zlib protocols/ntlm
+rm -r protocols/ntlm
 
 %build
 %{__libtoolize}
@@ -305,7 +295,7 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc doc/html_cvsclient
-%doc AUTHORS FAQ README
+%doc AUTHORS README
 %doc triggers/examples/*.txt
 %dir %{_sysconfdir}/cvsnt
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/cvsnt
@@ -389,10 +379,10 @@ fi
 %attr(755,root,root) %{_libdir}/cvsnt/protocols/sspi.so
 %{_libdir}/cvsnt/protocols/sspi.la
 
-%files protocol-sync
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/cvsnt/protocols/sync.so
-%{_libdir}/cvsnt/protocols/sync.la
+#%files protocol-sync
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_libdir}/cvsnt/protocols/sync.so
+#%{_libdir}/cvsnt/protocols/sync.la
 
 %files rcs
 %defattr(644,root,root,755)
