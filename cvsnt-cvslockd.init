@@ -19,64 +19,53 @@ fi
 
 start() {
 	# Start daemons.
-	if [ ! -f /var/lock/subsys/cvslockd ]; then
-		msg_starting cvslockd
-		daemon cvslockd
-		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/cvslockd
-	else
-		msg_already_running cvslockd
+	if [ -f /var/lock/subsys/cvslockd ]; then
+		msg_already_running "cvslockd"
+		return
 	fi
+
+	msg_starting "cvslockd"
+	daemon /usr/bin/cvslockd
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/cvslockd
 }
 
 stop() {
 	# Stop daemons.
-	if [ -f /var/lock/subsys/cvslockd ]; then
-		msg_stopping cvslockd
-		killproc cvslockd
-		rm -f /var/lock/subsys/cvslockd >/dev/null 2>&1
-	else
-		msg_not_running cvslockd
+	if [ ! -f /var/lock/subsys/cvslockd ]; then
+		msg_not_running "cvslockd"
+		return
 	fi
-}
 
-reload() {
-	if [ -f /var/lock/subsys/cvslockd ]; then
-		msg_reloading cvslockd
-		killproc cvslockd -HUP
-		RETVAL=$?
-	else
-		msg_not_running cvslockd
-		RETVAL=7
-	fi
+	msg_stopping "cvslockd"
+	killproc cvslockd
+	rm -f /var/lock/subsys/cvslockd >/dev/null 2>&1
 }
 
 condrestart() {
-	if [ -f /var/lock/subsys/cvslockd ]; then
-		stop
-		start
-	else
-		msg_not_running cvslockd
+	if [ ! -f /var/lock/subsys/cvslockd ]; then
+		msg_not_running "cvslockd"
 		RETVAL=$1
+		return
 	fi
+
+	stop
+	start
 }
 
 RETVAL=0
 # See how we were called.
 case "$1" in
   start)
-  	start
+	start
 	;;
   stop)
-  	stop
+	stop
 	;;
   restart)
 	stop
 	start
 	;;
-#  reload|force-reload)
-#  	reload
-#	;;
   try-restart)
 	condrestart 0
 	;;
