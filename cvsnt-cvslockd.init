@@ -6,8 +6,6 @@
 # description:	cvslockd is a cvs locking server
 #
 # processname:	cvslockd
-# config:
-# pidfile:
 
 # Source function library.
 . /etc/rc.d/init.d/functions
