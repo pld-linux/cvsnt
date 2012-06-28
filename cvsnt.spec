@@ -23,7 +23,7 @@ Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 # http://www.cvsnt.org/archive/2.5_stable tell which version is stable
 Version:	2.5.05.3744
-Release:	6
+Release:	7
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
