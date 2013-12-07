@@ -1,0 +1,53 @@
+--- cvs-nserver-1.11.1.52/diff/diff3.c~	2001-05-19 14:05:15.000000000 +0200
++++ cvs-nserver-1.11.1.52/diff/diff3.c	2013-12-07 14:42:15.691191794 +0100
+@@ -1502,7 +1502,7 @@
+ 	      line = 0;
+ 	      do
+ 		{
+-		  printf_output (line_prefix);
++		  printf_output ("%s", line_prefix);
+ 		  cp = D_RELNUM (ptr, realfile, line);
+ 		  length = D_RELLEN (ptr, realfile, line);
+ 		  write_output (cp, length);
+--- cvsnt-2.5.05.3744/src/client.cpp~	2010-03-23 22:53:46.000000000 +0100
++++ cvsnt-2.5.05.3744/src/client.cpp	2013-12-07 14:49:05.851188825 +0100
+@@ -3731,7 +3731,7 @@
+ 				/* Overflow here??  possible, but we're only on the client and about to die anyway */
+ 				if(!strcmp(read_buf,"bad auth protocol start"))
+ 					sprintf(read_buf,":%s: protocol not supported by server",client_protocol->name);
+-				error(1, 0, read_buf);
++				error(1, 0, "%s", read_buf);
+ 			}
+ 			else
+ 			{
+--- cvsnt-2.5.05.3744/src/root.cpp~	2009-08-04 18:32:43.000000000 +0200
++++ cvsnt-2.5.05.3744/src/root.cpp	2013-12-07 14:54:19.931186551 +0100
+@@ -1054,7 +1054,7 @@
+ 
+     /* get the appropriate port string */
+ 	if(!root->port)
+-		sprintf (port_s, get_default_client_port(client_protocol));
++		sprintf (port_s, "%s", get_default_client_port(client_protocol));
+ 	else
+ 		strcpy(port_s,root->port);
+ 
+--- cvsnt-2.5.05.3744/src/subr.cpp~	2013-12-07 14:48:03.000000000 +0100
++++ cvsnt-2.5.05.3744/src/subr.cpp	2013-12-07 14:54:53.351186310 +0100
+@@ -85,7 +85,7 @@
+ 		char buf[80];
+ 		sprintf (buf, "out of memory; can not allocate %lu bytes",
+ 			(unsigned long) bytes);
+-		error (1, 0, buf);
++		error (1, 0, "%s", buf);
+     }
+ 	MALLOC_CHECK();
+ 
+@@ -123,7 +123,7 @@
+ 		char buf[80];
+ 		sprintf (buf, "out of memory; can not reallocate %lu bytes",
+ 			(unsigned long) bytes);
+-		error (1, 0, buf);
++		error (1, 0, "%s", buf);
+     }
+ 	MALLOC_CHECK();
+     return (cp);
