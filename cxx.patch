@@ -1,0 +1,30 @@
+--- cvsnt-2.5.05.3744/cvsapi/mdns.cpp.orig	2006-07-12 15:38:09.000000000 +0200
++++ cvsnt-2.5.05.3744/cvsapi/mdns.cpp	2018-03-18 22:44:15.595819988 +0100
+@@ -35,7 +35,7 @@
+ 	cvs::string tmp = type;
+ 	tmp+=SHARED_LIBRARY_EXTENSION;
+ 	if(!la.Load(tmp.c_str(),dir))
+-		return false;
++		return NULL;
+ 	pNewMdnsHelper = (CMdnsHelperBase*(*)())la.GetProc("CreateHelper");
+ 	if(!pNewMdnsHelper)
+ 		return NULL;
+--- cvsnt-2.5.05.3744/cvsapi/SqlConnection.cpp~	2006-07-14 15:35:28.000000000 +0200
++++ cvsnt-2.5.05.3744/cvsapi/SqlConnection.cpp	2018-03-18 22:44:52.440169383 +0100
+@@ -35,7 +35,7 @@
+ 
+ 	CServerIo::trace(3,"Connecting to %s",db);
+ 	if(!la.Load(name.c_str(),dir))
+-		return false;
++		return NULL;
+ 	pNewSqlConnection = (CSqlConnection*(*)())la.GetProc("CreateConnection");
+ 
+ 	if(!pNewSqlConnection)
+--- cvsnt-2.5.05.3744/diff/unicodeapi.cpp~	2018-03-20 01:02:30.000000000 +0100
++++ cvsnt-2.5.05.3744/diff/unicodeapi.cpp	2018-03-20 01:02:48.344855888 +0100
+@@ -1,5 +1,4 @@
+ #include <config.h>
+-#include <system.h>
+ #include <string.h>
+ #ifdef HAVE_MALLOC_H
+ #include <malloc.h>

@@ -38,11 +38,12 @@ Patch3:		%{name}-nospam.patch
 Patch4:		%{name}-fixes.patch
 Patch5:		%{name}-gcc4.patch
 Patch6:		format-security.patch
+Patch7:		cxx.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
 BuildRequires:	docbook-style-xsl
-BuildRequires:	howl-devel
+BuildRequires:	avahi-compat-howl-devel
 %{?with_kerberos:BuildRequires:	heimdal-devel}
 BuildRequires:	libltdl-devel
 BuildRequires:	libntlm-devel >= 0.3.6
@@ -211,6 +212,7 @@ CVSNT version of RCS tools.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 rm -r protocols/ntlm
 
