@@ -23,7 +23,7 @@ Summary(pl.UTF-8):	Concurrent Versioning System
 Name:		cvsnt
 # http://www.cvsnt.org/archive/2.5_stable tell which version is stable
 Version:	2.5.05.3744
-Release:	11
+Release:	12
 License:	GPL v2+/LGPL v2+
 Group:		Development/Version Control
 Source0:	http://www.cvsnt.org/archive/%{name}-%{version}.tar.gz
@@ -39,6 +39,7 @@ Patch4:		%{name}-fixes.patch
 Patch5:		%{name}-gcc4.patch
 Patch6:		format-security.patch
 Patch7:		cxx.patch
+Patch8:		openssl.patch
 URL:		http://www.cvsnt.org/
 BuildRequires:	autoconf >= 2.58
 BuildRequires:	automake >= 1:1.7.9
@@ -213,6 +214,7 @@ CVSNT version of RCS tools.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 rm -r protocols/ntlm
 

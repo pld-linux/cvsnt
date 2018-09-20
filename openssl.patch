@@ -1,0 +1,11 @@
+--- cvsnt-2.5.05.3744/protocols/sserver.cpp~	2009-11-24 15:52:23.000000000 +0100
++++ cvsnt-2.5.05.3744/protocols/sserver.cpp	2018-09-20 10:34:35.129443525 +0200
+@@ -260,7 +260,7 @@ int sserver_connect(const struct protoco
+ 
+ 	SSL_library_init();
+ 	SSL_load_error_strings ();
+-	ctx = SSL_CTX_new (SSLv3_client_method ());
++	ctx = SSL_CTX_new (SSLv23_client_method ());
+ 	SSL_CTX_set_options(ctx,SSL_OP_ALL|SSL_OP_NO_SSLv2);
+ 	SSL_CTX_load_verify_locations(ctx,certs,NULL);
+ 	if(key)
