@@ -1,0 +1,13 @@
+--- cvsnt-2.5.05.3744/diff/diff3.c~	2021-10-23 22:29:35.000000000 +0200
++++ cvsnt-2.5.05.3744/diff/diff3.c	2021-10-23 22:32:54.900316124 +0200
+@@ -205,8 +205,8 @@
+ static int merge;
+ 
+ /* I/O mode: nonzero only if using binary input/output.  */
+-int binary_input;
+-int binary_output;
++extern int binary_input;
++extern int binary_output;
+ 
+ diff_encoding_type encoding3 = {0};
+ int no_unlink;
