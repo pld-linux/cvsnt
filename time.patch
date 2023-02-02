@@ -1,0 +1,20 @@
+--- cvsnt-2.5.05.3744/cvsapi/TagDate.cpp~	2005-06-30 18:41:06.000000000 +0200
++++ cvsnt-2.5.05.3744/cvsapi/TagDate.cpp	2023-02-02 21:24:20.479834973 +0100
+@@ -21,6 +21,7 @@
+ #include <sys/types.h>
+ #include <stdlib.h>
+ #include <ctype.h>
++#include <time.h>
+ #include "lib/getdate.h"
+ #include "TagDate.h"
+ 
+--- cvsnt-2.5.05.3744/triggers/audit_trigger.cpp~	2009-12-21 00:19:19.000000000 +0100
++++ cvsnt-2.5.05.3744/triggers/audit_trigger.cpp	2023-02-02 21:26:59.106501633 +0100
+@@ -20,6 +20,7 @@
+ #include <config.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <time.h>
+ #ifdef HAVE_SYS_TYPES_H
+ #include <sys/types.h>
+ #endif
