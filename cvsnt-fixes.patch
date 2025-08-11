@@ -83,3 +83,34 @@
  
  	CServerIo::trace(3,"CXmlTree::CreateNewTree() - xmlKeepBlanksDefault(0)");
      xmlKeepBlanksDefault(0);
+--- cvsnt-2.5.05.3744/configure.in~	2025-08-11 22:20:10.000000000 +0200
++++ cvsnt-2.5.05.3744/configure.in	2025-08-11 22:20:42.883837495 +0200
+@@ -582,6 +582,8 @@ if test "$enable_mysql" = "yes"; then
+   fi
+ fi
+ 
++AC_CHECK_HEADERS(mysql.h)
++
+ saved_libs="$LIBS"
+ LIBS="$MSQ_LDFLAGS"
+ if test "$enable_mysql" = "yes"; then
+@@ -591,9 +593,6 @@ if test "$enable_mysql" = "yes"; then
+ #include <mysql.h>
+ #endif
+ 
+-#if (defined(MYSQL_VERSION_ID))  &&  (MYSQL_VERSION_ID >= 40000) 
+-generate_an_error!!!
+-#endif
+ ]], [[mysql_init(0);]])],[ac_cv_have_mysql="yes"],[ac_cv_have_mysql="no"
+       LIBS="$saved_libs"])
+       AC_MSG_RESULT($ac_cv_have_mysql)], 
+--- cvsnt-2.5.05.3744/configure.in~	2025-08-11 22:22:54.000000000 +0200
++++ cvsnt-2.5.05.3744/configure.in	2025-08-11 22:29:12.920172628 +0200
+@@ -540,6 +540,7 @@ AC_ARG_ENABLE(sqlite,
+ [enable_sqlite="yes"])
+ AC_MSG_RESULT($enable_sqlite)
+ 
++AC_CHECK_HEADERS(sqlite3.h)
+ saved_libs="$LIBS"
+ LIBS=""
+ if test "$enable_sqlite" = "yes" ; then
