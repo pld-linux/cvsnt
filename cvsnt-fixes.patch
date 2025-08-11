@@ -20,3 +20,66 @@
  			FD_ZERO(&fds);
  			FD_SET(sock,&fds);
  			err = select(sock,NULL,&fds,NULL,&tv);
+--- cvsnt-2.5.05.3744/mdnsclient/mdnsclient.c.org	2008-07-11 23:12:27.000000000 +0200
++++ cvsnt-2.5.05.3744/mdnsclient/mdnsclient.c	2025-08-11 21:07:12.594625375 +0200
+@@ -43,6 +43,7 @@
+ #include <errno.h>
+ #include <string.h>
+ #include <stdio.h>
++#include <stdlib.h>
+ #ifdef _WIN32
+ #include <winsock2.h>
+ #include <ws2tcpip.h>
+@@ -865,6 +866,14 @@ static int process_response(sock_t fd, c
+     return 0;
+ }
+ 
++/* qsort comparator for array of char* */
++static int cmp_strptr(const void *a, const void *b)
++{
++    const char *sa = *(const char * const *)a;
++    const char *sb = *(const char * const *)b;
++    return strcmp(sa, sb);
++}
++
+ static int process_server(sock_t fd)
+ {
+     struct dns_packet *p = NULL;
+@@ -933,7 +942,7 @@ static int process_server(sock_t fd)
+ 					}
+ 					if(count)
+ 					{
+-						qsort(service_list,count,sizeof(service_list[0]),strcmp);
++						qsort(service_list,count,sizeof(service_list[0]),cmp_strptr);
+ 						last = NULL;
+ 						outp = begin_response();
+ 						ancount=0;
+--- cvsnt-2.5.05.3744/cvsapi/XmlTree.cpp~	2008-10-20 19:44:44.000000000 +0200
++++ cvsnt-2.5.05.3744/cvsapi/XmlTree.cpp	2025-08-11 21:11:17.859397963 +0200
+@@ -58,7 +58,7 @@ bool CXmlTree::ReadXmlFile(const char *n
+ {
+ 	DiscardTree();
+ 
+-    xmlSetStructuredErrorFunc(this, errorFunc);
++    xmlSetStructuredErrorFunc(this, (xmlStructuredErrorFunc)errorFunc);
+ 
+     xmlKeepBlanksDefault(0);
+     xmlLineNumbersDefault(1);
+@@ -74,7 +74,7 @@ bool CXmlTree::ParseXmlFromMemory(const
+ {
+ 	DiscardTree();
+ 
+-    xmlSetStructuredErrorFunc(this, errorFunc);
++    xmlSetStructuredErrorFunc(this, (xmlStructuredErrorFunc)errorFunc);
+ 
+     xmlKeepBlanksDefault(0);
+     xmlLineNumbersDefault(1);
+@@ -174,7 +174,7 @@ bool CXmlTree::CreateNewTree(const char
+ 	DiscardTree();
+ 
+ 	CServerIo::trace(3,"CXmlTree::CreateNewTree() - xmlSetStructuredErrorFunc()");
+-    xmlSetStructuredErrorFunc(this, errorFunc);
++    xmlSetStructuredErrorFunc(this, (xmlStructuredErrorFunc)errorFunc);
+ 
+ 	CServerIo::trace(3,"CXmlTree::CreateNewTree() - xmlKeepBlanksDefault(0)");
+     xmlKeepBlanksDefault(0);
